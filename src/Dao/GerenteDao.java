@@ -34,8 +34,13 @@ public class GerenteDao {
                 String senha = rs.getString("senha");
                 int tipoUsuario = rs.getInt("tipoUsuario");
 
-                Gerente g = new Gerente(nome, loginEmail, telefone, senha, tipoUsuario);
-
+                Gerente g = new Gerente();
+                g.setId(id);;
+                g.setLoginEmail(loginEmail);
+                g.setNome(nome);
+                g.setSenha(senha);
+                g.setTelefone(telefone);
+                g.setTipoUsuario(tipoUsuario);
                 lista.add(g);
             }
         }catch (Exception e){
