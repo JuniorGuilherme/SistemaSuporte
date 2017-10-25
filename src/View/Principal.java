@@ -1,9 +1,6 @@
 package View;
 
-import Bean.Chamado;
-import Bean.Gerente;
-import Bean.Pessoa;
-import Bean.Tecnico;
+import Bean.*;
 import Connection.DbUtils;
 import Dao.ChamadoDao;
 import Dao.GerenteDao;
@@ -20,11 +17,17 @@ public class Principal {
         Pessoa usuarioLogado = new Pessoa();
         int op;
 
-        Gerente g = new Gerente("Jr", "jrg_compras","48991944425", "123",2);
-        gDao.salvar(g);
+        Gerente gMaster = new Gerente();
+        gMaster.setNome("Jr");
+        gMaster.setSenha("123");
+        gMaster.setTipoUsuario(3);
+        gMaster.setTelefone("48991944425");
+        gMaster.setLoginEmail("jrg_compras");
+        gDao.salvar(gMaster);
 
         do{
             System.out.println("1- Login");
+            System.out.println("2- Cadastre-se");
             System.out.println("0- Sair");
 
             System.out.println("Opcao:");
@@ -93,6 +96,7 @@ public class Principal {
                                                     Chamado c = new Chamado(usuarioLogado.getId());
                                                     c.listarChamados();
                                                 }
+                                                break;
                                             }
                                         }while(op2!=0);
                                     }else{
@@ -114,8 +118,7 @@ public class Principal {
 
                                             switch (op4){
                                                 case 1:{
-                                                    Tecnico t = new Tecnico();
-                                                    t.cadastrar();
+
                                                 }
                                                 break;
                                                 case 4:{
@@ -130,8 +133,32 @@ public class Principal {
                                 }
                                 break;
                                 case 3:{
+                                    int op5;
                                     if(usuarioLogado.getTipoUsuario()>=3){
-                                        System.out.println("MENU GERENTE");
+                                        do{
+                                            System.out.println("MENU GERENTE");
+                                            System.out.println("1- Cadastrar Clientes");
+                                            System.out.println("2- Cadastrar Tecnicos");
+                                            System.out.println("3- Cadastrar Gerentes");
+                                            op5 = tc.nextInt();
+
+                                            switch (op5){
+                                                case 1:{
+                                                    Cliente c = new Cliente();
+                                                    c.cadastrar();
+                                                }
+                                                break;
+                                                case 2:{
+                                                    Tecnico t = new Tecnico();
+                                                    t.cadastrar();
+                                                }
+                                                break;
+                                                case 3:{
+                                                    Gerente g = new Gerente();
+                                                    g.cadastrar();
+                                                }
+                                            }
+                                        }while (op5!=0);
                                     }else{
                                         System.out.println("Acesso negado. Nivel de permissao insuficiente.");
                                     }

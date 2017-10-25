@@ -16,7 +16,7 @@ public class ClienteDao {
 
     public void salvar(Cliente c){
         if(c!=null){
-            String sql = "insert into cliente (nome, telefone, loginEmail, senha, tipoUsuario, numTarefas) values ('"+c.getNome()+"','"+c.getTelefone()+"','"+c.getLoginEmail()+"','"+c.getSenha()+"',"+c.getTipoUsuario()+");";
+            String sql = "insert into cliente (nome, telefone, loginEmail, senha, tipoUsuario) values ('"+c.getNome()+"','"+c.getTelefone()+"','"+c.getLoginEmail()+"','"+c.getSenha()+"',"+c.getTipoUsuario()+");";
             sqlite.executarSQL(sql);
         }
     }

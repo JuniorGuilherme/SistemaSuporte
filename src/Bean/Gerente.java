@@ -1,11 +1,17 @@
 package Bean;
 
+import Dao.GerenteDao;
+
 public class Gerente extends Pessoa {
-    public Gerente(String nome, String loginEmail, String telefone, String senha, int tipoUsuario){
-        this.setNome(nome);
-        this.setLoginEmail(loginEmail);
-        this.setTelefone(telefone);
-        this.setSenha(senha);
-        this.setTipoUsuario(tipoUsuario);
+    public void cadastrar(){
+        Pessoa p = new Pessoa();
+        p.cadastrar();
+        this.setNome(p.getNome());
+        this.setTelefone(p.getTelefone());
+        this.setLoginEmail(p.getLoginEmail());
+        this.setSenha(p.getSenha());
+        this.setTipoUsuario(p.getTipoUsuario());
+        GerenteDao gDao = new GerenteDao();
+        gDao.salvar(this);
     }
 }

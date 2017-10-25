@@ -16,7 +16,7 @@ public class PessoaDao {
 
     public ArrayList<Pessoa> retornaLista(){
         ArrayList<Pessoa> lista = new ArrayList<>();
-        String sql = "SELECT id, nome, telefone, loginEmail, senha, tipoUsuario FROM PESSOA;";
+        String sql = "SELECT * distinct FROM CLIENTE, GERENTE, TECNICO;";
         ResultSet rs = sqlite.querySql(sql);
 
         try{

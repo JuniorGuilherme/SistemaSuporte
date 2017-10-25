@@ -8,7 +8,7 @@ public class DbUtils {
     }
     public  void criarDB()
     {
-        String sql = "CREATE TABLE PESSOA " +
+        String sql = "CREATE TABLE gerente " +
                 "(ID  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 " nome  varchar(45) NOT NULL, " +
                 " telefone  varchar(45) NOT NULL, " +
@@ -22,20 +22,29 @@ public class DbUtils {
                 "idCliente int not null);";
         sqlite.executarSQL(sql);
 
-        String sql2 = " create table tecnico" +
+        String sqlTecnico = " create table tecnico" +
                 " (ID  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 " nome  varchar(45) NOT NULL," +
                 " telefone  varchar(45) NOT NULL, " +
                 " loginEmail varchar(45) NOT NULL, " +
                 " senha varchar(45) NOT NULL, " +
-                " tipoUsuario INT not null), " +
-                " numTarefas int not null; ";
-        sqlite.executarSQL(sql2);
+                " tipoUsuario INT not null," +
+                " numTarefas int not null); ";
+        sqlite.executarSQL(sqlTecnico);
+
+        String sqlCliente = " create table cliente" +
+                " (ID  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                " nome  varchar(45) NOT NULL," +
+                " telefone  varchar(45) NOT NULL, " +
+                " loginEmail varchar(45) NOT NULL, " +
+                " senha varchar(45) NOT NULL, " +
+                " tipoUsuario INT not null); ";
+        sqlite.executarSQL(sqlCliente);
     }
 
     public  void dropTable() {
 
-        String sql = "DROP TABLE IF EXISTS PESSOA; DROP TABLE IF EXISTS CHAMADO; DROP TABLE IF EXISTS TECNICO;";
+        String sql = "DROP TABLE IF EXISTS PESSOA; DROP TABLE IF EXISTS CHAMADO; DROP TABLE IF EXISTS TECNICO; DROP TABLE IF EXISTS gerente; DROP TABLE IF EXISTS cliente;";
         sqlite.executarSQL(sql);
     }
 }
