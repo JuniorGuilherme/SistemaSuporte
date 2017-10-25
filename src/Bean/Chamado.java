@@ -1,12 +1,14 @@
 package Bean;
 
 import Dao.ChamadoDao;
+import Dao.TecnicoDao;
 
 import java.util.ArrayList;
 
 public class Chamado {
     ChamadoDao cDao = new ChamadoDao();
-    private int prioridade, idCliente, id;
+
+    private int prioridade, idCliente, id, idTecnico;
     private String descricao;
 
     public Chamado(int id, String descricao, int prioridade, int idCliente){
@@ -24,6 +26,14 @@ public class Chamado {
 
     public Chamado(int idCliente){
         this.idCliente=idCliente;
+    }
+
+    public int getIdTecnico() {
+        return idTecnico;
+    }
+
+    public void setIdTecnico(int idTecnico) {
+        this.idTecnico = idTecnico;
     }
 
     public int getId() {
@@ -59,7 +69,25 @@ public class Chamado {
     }
 
     public void abrirChamado(Chamado c){
-        cDao.salvar(c);
+        TecnicoDao tDao = new TecnicoDao();
+        Tecnico tVago = new Tecnico();
+        ArrayList<Tecnico> list;
+        list=tDao.retornaLista();
+        if (!list.isEmpty()) {
+            int menor = list.get(0).getNumTarefas();
+            for (Tecnico t : list
+                    ) {
+                if(t.getNumTarefas()<menor){
+                    menor=t.getNumTarefas();
+                    tVago=t;
+                }
+            }
+            c.setIdTecnico(tVago.getId());
+            cDao.salvar(c);
+        }
+        else{
+            System.out.println("Tecnicos indisponiveis.");
+        }
     }
 
     public void listarChamados(){

@@ -1,8 +1,6 @@
 package Dao;
 
 import Bean.Chamado;
-import Bean.Gerente;
-import Bean.Pessoa;
 import Connection.DbHelper;
 
 import java.sql.ResultSet;

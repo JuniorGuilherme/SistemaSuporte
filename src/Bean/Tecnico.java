@@ -28,6 +28,8 @@ public class Tecnico extends Pessoa {
         this.setSenha(p.getSenha());
         this.setTipoUsuario(p.getTipoUsuario());
         this.setNumTarefas(0);
+
+        tDao.salvar(t);
     }
 
     public void listarTecnicos(){
