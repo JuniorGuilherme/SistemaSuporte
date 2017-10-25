@@ -19,14 +19,22 @@ public class DbUtils {
                 "(ID  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 "prioridade int not null," +
                 "descricao varchar(150) not null," +
-                "idCliente int not null);";
+                "idCliente int not null);" +
+                "create table tecnico" +
+                "(ID  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                "nome  varchar(45) NOT NULL," +
+                "telefone  varchar(45) NOT NULL, " +
+                "loginEmail varchar(45) NOT NULL, " +
+                "senha varchar(45) NOT NULL, " +
+                "tipoUsuario INT not null), " +
+                "numTarefas int not null;";
         sqlite.executarSQL(sql);
 
     }
 
     public  void dropTable() {
 
-        String sql = "DROP TABLE IF EXISTS PESSOA ";
+        String sql = "DROP TABLE IF EXISTS PESSOA; DROP TABLE IF EXISTS CHAMADO; DROP TABLE IF EXISTS TECNICO;";
         sqlite.executarSQL(sql);
     }
 }

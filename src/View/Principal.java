@@ -3,6 +3,7 @@ package View;
 import Bean.Chamado;
 import Bean.Gerente;
 import Bean.Pessoa;
+import Bean.Tecnico;
 import Connection.DbUtils;
 import Dao.ChamadoDao;
 import Dao.GerenteDao;
@@ -100,8 +101,29 @@ public class Principal {
                                 }
                                 break;
                                 case 2:{
+                                    int op4;
                                     if(usuarioLogado.getTipoUsuario()>=2){
-                                        System.out.println("MENU TECNICO");
+                                        do{
+                                            System.out.println("MENU TECNICO");
+                                            System.out.println("1- Cadastrar Tecnicos");
+                                            System.out.println("2- Remover Tecnicos");
+                                            System.out.println("3- Atualizar");
+                                            System.out.println("4- Visualizar Tecnicos");
+                                            System.out.println("0- Sair");
+                                            op4=tc.nextInt();
+
+                                            switch (op4){
+                                                case 1:{
+                                                    Tecnico t = new Tecnico();
+                                                    t.cadastrar();
+                                                }
+                                                break;
+                                                case 4:{
+                                                    Tecnico t = new Tecnico();
+                                                    t.listarTecnicos();
+                                                }
+                                            }
+                                        }while(op4!=0);
                                     }else{
                                         System.out.println("Acesso negado. Nivel de permissao insuficiente.");
                                     }

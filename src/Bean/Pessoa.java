@@ -3,6 +3,7 @@ package Bean;
 import Dao.PessoaDao;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Pessoa {
     private String nome;
@@ -10,6 +11,7 @@ public class Pessoa {
     private String loginEmail;
     private String senha;
     private int tipoUsuario;
+    Scanner tc = new Scanner(System.in);
 
     public int getId() {
         return id;
@@ -81,5 +83,18 @@ public class Pessoa {
         }
         System.out.println("Usuario nao encontrado.");
         return null;
+    }
+
+    public void cadastrar(){
+        System.out.println("Nome: ");
+        this.nome = tc.next();
+        System.out.println("Telefone:");
+        this.telefone = tc.next();
+        System.out.println("Email: ");
+        this.loginEmail=tc.next();
+        System.out.println("Senha: ");
+        this.senha=tc.next();
+        System.out.println("Nivel de Permissao: ");
+        this.tipoUsuario=tc.nextInt();
     }
 }

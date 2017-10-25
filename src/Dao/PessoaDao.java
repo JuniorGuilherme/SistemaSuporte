@@ -5,6 +5,7 @@ import Connection.DbHelper;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class PessoaDao {
     DbHelper sqlite;
