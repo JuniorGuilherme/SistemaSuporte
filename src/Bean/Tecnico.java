@@ -18,7 +18,7 @@ public class Tecnico extends Pessoa {
         this.numTarefas = numTarefas;
     }
 
-    public void cadastrar(){
+    public Tecnico ler(){
         Pessoa p = new Pessoa();
         p.cadastrar();
         Tecnico t = new Tecnico();
@@ -28,24 +28,59 @@ public class Tecnico extends Pessoa {
         t.setSenha(p.getSenha());
         t.setTipoUsuario(p.getTipoUsuario());
         t.setNumTarefas(0);
-
-        tDao.salvar(t);
+        return t;
     }
 
-    public void listarTecnicos(){
+    public void cadastrar(){
+        tDao.salvar(ler());
+    }
+
+    public boolean listarTecnicos(){
         ArrayList<Tecnico> list = new ArrayList();
         list=tDao.retornaLista();
+        if(list!=null) {
+            for (Tecnico t : list
+                    ) {
+                System.out.println("");
+                System.out.println("Codigo: " + t.getId());
+                System.out.println("Nome: " + t.getNome());
+                System.out.println("Email: " + t.getLoginEmail());
+                System.out.println("Telefone: " + t.getTelefone());
+                System.out.println("Senha: " + t.getSenha());
+                System.out.println("Nivel de Permissao: " + t.getTipoUsuario());
+                System.out.println("Numero de Tarefas: " + t.getNumTarefas());
+            }
+            return true;
+        }else{
+            System.out.println("Nenhum tecnico adicionado.");
+            return false;
+        }
+    }
 
-        for (Tecnico t: list
-                ) {
+    public void alterar(){
+
+        int id;
+        if(listarTecnicos()) {
+            System.out.println("Digite o codigo do gerente para alterar:");
+            id = tc.nextInt();
+            Tecnico t = new Tecnico();
+            t = t.ler();
+            t.setId(id);
+            tDao.update(t);
+        }else{
+
+        }
+    }
+
+    public void remover(){
+        int id;
+        if(listarTecnicos()) {
             System.out.println("");
-            System.out.println("Codigo: "+t.getId());
-            System.out.println("Nome: "+t.getNome());
-            System.out.println("Email: "+t.getLoginEmail());
-            System.out.println("Telefone: "+t.getTelefone());
-            System.out.println("Senha: "+t.getSenha());
-            System.out.println("Nivel de Permissao: "+t.getTipoUsuario());
-            System.out.println("Numero de Tarefas: "+t.getNumTarefas());
+            System.out.println("Digite o codigo do tecnico para remover:");
+            id = tc.nextInt();
+            tDao.remover(id);
+        }else{
+
         }
     }
 }

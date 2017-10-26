@@ -1,6 +1,7 @@
 package Dao;
 
 import Bean.Cliente;
+import Bean.Gerente;
 import Bean.Tecnico;
 import Connection.DbHelper;
 
@@ -53,5 +54,35 @@ public class ClienteDao {
         }else{
             return lista;
         }
+    }
+
+    public boolean consultaId(int id){
+        String sql = "select id from cliente where id="+id+";";
+        ResultSet rs = sqlite.querySql(sql);
+        int idAux=-1;
+        try {
+            while (rs.next()) {
+                idAux = rs.getInt("id");
+            }
+        }catch (Exception e){
+
+        }
+
+        if(idAux==id){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public void update(Cliente c){
+        String sql = "update gerente set nome='"+c.getNome()+"', telefone='"+c.getTelefone()+"', loginEmail='"+c.getLoginEmail()+"', senha='"+c.getSenha()+"', tipoUsuario="+c.getTipoUsuario()+";"
+                ;
+        sqlite.executarSQL(sql);
+    }
+
+    public void remover (int id){
+        String sql= "delete from cliente where id="+id+";";
+        sqlite.executarSQL(sql);
     }
 }

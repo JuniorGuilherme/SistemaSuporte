@@ -22,7 +22,7 @@ public class GerenteDao {
 
     public ArrayList<Gerente> retornaLista(){
         ArrayList<Gerente> lista = new ArrayList<>();
-        String sql = "SELECT id, nome, telefone, loginEmail, senha, tipousuario, numTarefas FROM gerente;";
+        String sql = "SELECT id, nome, telefone, loginEmail, senha, tipousuario FROM gerente;";
         ResultSet rs = sqlite.querySql(sql);
 
         try{
@@ -35,7 +35,7 @@ public class GerenteDao {
                 int tipoUsuario = rs.getInt("tipoUsuario");
 
                 Gerente g = new Gerente();
-                g.setId(id);;
+                g.setId(id);
                 g.setLoginEmail(loginEmail);
                 g.setNome(nome);
                 g.setSenha(senha);
@@ -51,5 +51,16 @@ public class GerenteDao {
         }else{
             return lista;
         }
+    }
+
+    public void update(Gerente g){
+        String sql = "update gerente set nome='"+g.getNome()+"', telefone='"+g.getTelefone()+"', loginEmail='"+g.getLoginEmail()+"', senha='"+g.getSenha()+"', tipoUsuario="+g.getTipoUsuario()+";"
+;
+        sqlite.executarSQL(sql);
+    }
+
+    public void remover (int id){
+        String sql= "delete from gerente where id="+id+";";
+        sqlite.executarSQL(sql);
     }
 }

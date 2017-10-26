@@ -1,5 +1,6 @@
 package Dao;
 
+import Bean.Gerente;
 import Bean.Tecnico;
 import Connection.DbHelper;
 
@@ -54,5 +55,24 @@ public class TecnicoDao {
         }else{
             return lista;
         }
+    }
+
+    public void incrementaTarefa(int id){
+        String sql = "update tecnico set numTarefas=numTarefas+1 where id = "+id+";";
+        sqlite.executarSQL(sql);
+    }
+    public void decrementarTarefa(int id){
+        String sql = "update tecnico set numTarefas=numTarefas-1 where id = "+id+";";
+        sqlite.executarSQL(sql);
+    }
+    public void update(Tecnico t){
+        String sql = "update gerente set nome='"+t.getNome()+"', telefone='"+t.getTelefone()+"', loginEmail='"+t.getLoginEmail()+"', senha='"+t.getSenha()+"', tipoUsuario="+t.getTipoUsuario()+";"
+                ;
+        sqlite.executarSQL(sql);
+    }
+
+    public void remover (int id){
+        String sql= "delete from tecnico where id="+id+";";
+        sqlite.executarSQL(sql);
     }
 }

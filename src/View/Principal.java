@@ -3,6 +3,7 @@ package View;
 import Bean.*;
 import Connection.DbUtils;
 import Dao.ChamadoDao;
+import Dao.ClienteDao;
 import Dao.GerenteDao;
 
 import java.util.Scanner;
@@ -61,7 +62,7 @@ public class Principal {
 
                             switch (op2){
                                 case 1:{
-                                    if(usuarioLogado.getTipoUsuario()>=1){
+                                    if(usuarioLogado.getTipoUsuario()>=1 && usuarioLogado.getTipoUsuario()!=2){
                                         int op3;
                                         do{
                                             System.out.println("MENU CLIENTE");
@@ -74,26 +75,13 @@ public class Principal {
 
                                             switch (op3){
                                                 case 1:{
-                                                    String descricao;
-                                                    int esc;
-
-
-                                                    System.out.println("Descreva o problema:");
-                                                    descricao=tc.next();
-                                                    do{
-                                                        System.out.println("Escolha prioridade:");
-                                                        System.out.println("1- Baixa");
-                                                        System.out.println("2- Moderada");
-                                                        System.out.println("3- Alta");
-                                                        System.out.println("4- Urgente");
-                                                        esc=tc.nextInt();
-                                                    }while (esc<1||esc>4);
-
-                                                    Chamado c = new Chamado();
-                                                    c.setStatus(1);
-                                                    c.setDescricao(descricao);
-                                                    c.setPrioridade(esc);
-                                                    c.abrirChamado(c);
+                                                    ClienteDao cDao = new ClienteDao();
+                                                    if(cDao.retornaLista()!=null) {
+                                                        Chamado c = new Chamado();
+                                                        c.abrirChamado(usuarioLogado.getTipoUsuario());
+                                                    }else{
+                                                        System.out.println("Nao existem clientes para chamados.");
+                                                    }
                                                 }
                                                 break;
                                                 case 4:{
@@ -120,7 +108,6 @@ public class Principal {
                                             System.out.println("1- Tarefas Pendentes");
                                             System.out.println("2- Tarefas Realizadas");
                                             System.out.println("3- Finalizar Tarefas");
-                                            System.out.println("4- Visualizar Tecnicos");
                                             System.out.println("0- Sair");
                                             op4=tc.nextInt();
 
@@ -132,6 +119,10 @@ public class Principal {
                                                 case 2:{
                                                     c.listarChamados(0);
                                                 }
+                                                break;
+                                                case 3:{
+                                                    c.finalizar();
+                                                }
                                             }
                                         }while(op4!=0);
                                     }else{
@@ -141,6 +132,9 @@ public class Principal {
                                 break;
                                 case 3:{
                                     int op5;
+                                    Gerente g = new Gerente();
+                                    Cliente c = new Cliente();
+                                    Tecnico t = new Tecnico();
                                     if(usuarioLogado.getTipoUsuario()>=3){
                                         do{
                                             System.out.println("MENU GERENTE");
@@ -148,29 +142,66 @@ public class Principal {
                                             System.out.println("2- Cadastrar Tecnicos");
                                             System.out.println("3- Cadastrar Gerentes");
                                             System.out.println("4- Visualizar Tecnicos");
+                                            System.out.println("5- Visualizar Clientes");
+                                            System.out.println("6- Visualizar Gerentes");
+                                            System.out.println("7- Alterar Gerentes");
+                                            System.out.println("8- Alterar Clientes");
+                                            System.out.println("9- Alterar Tecnicos");
+                                            System.out.println("10- Remover Gerentes");
+                                            System.out.println("11- Remover Tecnicos");
+                                            System.out.println("12- Remover Clientes");
                                             System.out.println("0- Sair");
                                             op5 = tc.nextInt();
 
                                             switch (op5){
                                                 case 1:{
-                                                    Cliente c = new Cliente();
                                                     c.cadastrar();
                                                 }
                                                 break;
                                                 case 2:{
-                                                    Tecnico t = new Tecnico();
                                                     t.cadastrar();
                                                 }
                                                 break;
                                                 case 3:{
-                                                    Gerente g = new Gerente();
                                                     g.cadastrar();
                                                 }
                                                 break;
                                                 case 4:{
-                                                    Tecnico t = new Tecnico();
                                                     t.listarTecnicos();
                                                 }
+                                                break;
+                                                case 5:{
+                                                    c.listarClientes();
+                                                }
+                                                break;
+                                                case 6:{
+                                                    g.listarGerentes();
+                                                }
+                                                break;
+                                                case 7:{
+                                                    g.alterar();
+                                                }
+                                                break;
+                                                case 8:{
+                                                    c.alterar();
+                                                }
+                                                break;
+                                                case 9:{
+                                                    t.alterar();
+                                                }
+                                                break;
+                                                case 10:{
+                                                    g.remover();
+                                                }
+                                                break;
+                                                case 11:{
+                                                    t.remover();
+                                                }
+                                                break;
+                                                case 12:{
+                                                    c.remover();
+                                                }
+                                                break;
                                                 case 0:{
                                                     System.out.println("Menu suspenso.");
                                                 }
