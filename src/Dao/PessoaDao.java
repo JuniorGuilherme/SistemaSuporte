@@ -29,12 +29,6 @@ public class PessoaDao {
         }
     }
 
-    public void salvar(Pessoa p){
-        if(p!=null){
-            String sql = "insert into pessoa("+p.getNome()+","+p.getTelefone()+","+p.getLoginEmail()+","+p.getSenha()+","+p.getTipoUsuario()+")";
-            sqlite.executarSQL(sql);
-        }
-    }
 
     public void preencheArray(String sql, ArrayList lista){
         ResultSet rs = sqlite.querySql(sql);

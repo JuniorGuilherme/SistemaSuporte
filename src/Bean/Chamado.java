@@ -132,11 +132,13 @@ public class Chamado {
         }
     }
 
-    public void listarChamados(int status){
-        ArrayList<Chamado> list = new ArrayList();
-        list=cDao.retornaLista();
+    public boolean listarChamados(int status, int idUsuario, int tipoUsuario){
+        ArrayList<Chamado> list;
+        list=cDao.retornaLista(idUsuario, tipoUsuario);
+
 
         if(list!=null) {
+            System.out.println("Chamados registrados:");
             for (Chamado c : list
                     ) {
                 if (c.getStatus() == status) {
@@ -144,12 +146,14 @@ public class Chamado {
                     System.out.println("Codigo: " + c.getId());
                     System.out.println("Descricao: " + c.getDescricao());
                     System.out.println("Prioridade: " + c.getPrioridade());
-                    System.out.println("Codigo do Cliente: " + c.getIdCliente());
+                    System.out.println("Codigo do Cliente:  " + c.getIdCliente());
                     System.out.println("Codigo do Tecnico: " + c.getIdTecnico());
                 }
             }
+            return true;
         }else{
             System.out.println("Nenhum chamado adicionado.");
+            return false;
         }
     }
 
@@ -158,5 +162,51 @@ public class Chamado {
         System.out.println("DIgite o codigo do chamado para finalizar:");
         id=tc.nextInt();
         cDao.finalizar(id);
+    }
+
+    public void alterar(){
+
+        int id;
+            System.out.println("Digite o codigo do chamado para alterar:");
+            id = tc.nextInt();
+            Chamado c = new Chamado();
+            c = c.ler();
+            c.setId(id);
+            cDao.update(c);
+    }
+
+    public Chamado ler(){
+        int esc;
+        Chamado c = new Chamado();
+
+        System.out.println("Descreva o problema:");
+        descricao=tc.next();
+        do{
+            System.out.println("Escolha  prioridade:");
+            System.out.println("1- Baixa");
+            System.out.println("2- Moderada");
+            System.out.println("3- Alta");
+            System.out.println("4- Urgente");
+            esc=tc.nextInt();
+            c.setPrioridade(esc);
+        }while (esc<1||esc>4);
+        c.setStatus(1);
+        c.setDescricao(descricao);
+
+        return c;
+    }
+
+    public void alterarTecnicoChamado(){
+        Tecnico t = new Tecnico();
+
+        System.out.println("Digite o codigo do chamado a modificar:");
+        int codChamado = tc.nextInt();
+        System.out.println("Tecnicos disponiveis:");
+        t.listarTecnicos();
+
+        System.out.println("Escolha o novo tecnico atraves do codigo para o chamado:");
+        int idTec = tc. nextInt();
+        cDao.alterarTecnico(codChamado, idTecnico);
+
     }
 }

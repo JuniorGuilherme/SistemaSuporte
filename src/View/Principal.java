@@ -65,6 +65,9 @@ public class Principal {
                                     if(usuarioLogado.getTipoUsuario()>=1 && usuarioLogado.getTipoUsuario()!=2){
                                         int op3;
                                         do{
+                                            Chamado c = new Chamado();
+                                            ClienteDao cDao = new ClienteDao();
+
                                             System.out.println("MENU CLIENTE");
                                             System.out.println("1- Adicionar chamado");
                                             System.out.println("2- Alterar Chamado");
@@ -75,18 +78,31 @@ public class Principal {
 
                                             switch (op3){
                                                 case 1:{
-                                                    ClienteDao cDao = new ClienteDao();
                                                     if(cDao.retornaLista()!=null) {
-                                                        Chamado c = new Chamado();
                                                         c.abrirChamado(usuarioLogado.getTipoUsuario());
                                                     }else{
                                                         System.out.println("Nao existem clientes para chamados.");
                                                     }
                                                 }
                                                 break;
+                                                case 2:{
+                                                    if(c.listarChamados(1, usuarioLogado.getId(), usuarioLogado.getTipoUsuario())){
+                                                        c.alterar();
+                                                    }
+                                                }
+                                                break;
+                                                case 3:{
+                                                    c.listarChamados(1, usuarioLogado.getId(), usuarioLogado.getTipoUsuario());
+                                                    System.out.println("");
+                                                    c.finalizar();
+                                                }
+                                                break;
                                                 case 4:{
-                                                    Chamado c = new Chamado();
-                                                    c.listarChamados(1);
+                                                    if(usuarioLogado.getTipoUsuario()!=3) {
+                                                        c.listarChamados(1, usuarioLogado.getId(), usuarioLogado.getTipoUsuario());
+                                                    }else{
+                                                        System.out.println("Voce é um gerente, entre como cliente para ver os chamados do mesmo.");
+                                                    }
                                                 }
                                                 break;
                                                 case 0:{
@@ -113,11 +129,11 @@ public class Principal {
 
                                             switch (op4){
                                                 case 1:{
-                                                    c.listarChamados(1);
+                                                    c.listarChamados(1, usuarioLogado.getId(), usuarioLogado.getTipoUsuario());
                                                 }
                                                 break;
                                                 case 2:{
-                                                    c.listarChamados(0);
+                                                    c.listarChamados(0, usuarioLogado.getId(), usuarioLogado.getTipoUsuario());
                                                 }
                                                 break;
                                                 case 3:{
@@ -135,6 +151,8 @@ public class Principal {
                                     Gerente g = new Gerente();
                                     Cliente c = new Cliente();
                                     Tecnico t = new Tecnico();
+                                    Chamado ch = new Chamado();
+
                                     if(usuarioLogado.getTipoUsuario()>=3){
                                         do{
                                             System.out.println("MENU GERENTE");
@@ -150,6 +168,7 @@ public class Principal {
                                             System.out.println("10- Remover Gerentes");
                                             System.out.println("11- Remover Tecnicos");
                                             System.out.println("12- Remover Clientes");
+                                            System.out.println("13- Alterar Tecnico de Chamados");
                                             System.out.println("0- Sair");
                                             op5 = tc.nextInt();
 
@@ -200,6 +219,14 @@ public class Principal {
                                                 break;
                                                 case 12:{
                                                     c.remover();
+                                                }
+                                                break;
+                                                case 13:{
+                                                    if(ch.listarChamados(1,usuarioLogado.getId(), usuarioLogado.getTipoUsuario())){
+                                                        ch.alterarTecnicoChamado();
+                                                    }
+
+
                                                 }
                                                 break;
                                                 case 0:{
