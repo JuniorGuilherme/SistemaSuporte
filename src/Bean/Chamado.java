@@ -74,7 +74,7 @@ public class Chamado {
             int menor = list.get(0).getNumTarefas();
             for (Tecnico t : list
                     ) {
-                if(t.getNumTarefas()<menor){
+                if(t.getNumTarefas()<=menor){
                     menor=t.getNumTarefas();
                     tVago=t;
                 }
@@ -82,6 +82,7 @@ public class Chamado {
             c.setIdTecnico(tVago.getId());
             c.setStatus(1);
             cDao.salvar(c);
+            tDao.incrementaTarefa(tVago.getId());
         }
         else{
             System.out.println("Tecnicos indisponiveis.");

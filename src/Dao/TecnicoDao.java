@@ -55,4 +55,9 @@ public class TecnicoDao {
             return lista;
         }
     }
+
+    public void incrementaTarefa(int id){
+        String sql = "update tecnico set numTarefas=numTarefas+1 where id = "+id+";";
+        sqlite.executarSQL(sql);
+    }
 }

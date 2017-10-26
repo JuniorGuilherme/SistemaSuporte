@@ -19,7 +19,10 @@ public class DbUtils {
                 "(ID  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 "prioridade int not null," +
                 "descricao varchar(150) not null," +
-                "idCliente int not null);";
+                "idCliente int not null," +
+                "status int not null," +
+                "idTecnico int not null," +
+                "FOREIGN KEY(idTecnico) REFERENCES tecnico(id));";
         sqlite.executarSQL(sql);
 
         String sqlTecnico = " create table tecnico" +

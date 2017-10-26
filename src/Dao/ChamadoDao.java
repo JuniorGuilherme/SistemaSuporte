@@ -15,7 +15,7 @@ public class ChamadoDao {
 
     public void salvar(Chamado c){
         if(c!=null){
-            String sql = "insert into chamado (prioridade, descricao, idCliente) values ("+c.getPrioridade()+",'"+c.getDescricao()+"',"+c.getIdCliente()+")";
+            String sql = "insert into chamado (prioridade, descricao, idCliente, status, idTecnico) values ("+c.getPrioridade()+",'"+c.getDescricao()+"',"+c.getIdCliente()+","+c.getStatus()+","+c.getIdTecnico()+");";
             sqlite.executarSQL(sql);
         }
     }
