@@ -60,4 +60,8 @@ public class TecnicoDao {
         String sql = "update tecnico set numTarefas=numTarefas+1 where id = "+id+";";
         sqlite.executarSQL(sql);
     }
+    public void decrementarTarefa(int id){
+        String sql = "update tecnico set numTarefas=numTarefas-1 where id = "+id+";";
+        sqlite.executarSQL(sql);
+    }
 }

@@ -3,6 +3,7 @@ package View;
 import Bean.*;
 import Connection.DbUtils;
 import Dao.ChamadoDao;
+import Dao.ClienteDao;
 import Dao.GerenteDao;
 
 import java.util.Scanner;
@@ -61,7 +62,7 @@ public class Principal {
 
                             switch (op2){
                                 case 1:{
-                                    if(usuarioLogado.getTipoUsuario()>=1){
+                                    if(usuarioLogado.getTipoUsuario()>=1 && usuarioLogado.getTipoUsuario()!=2){
                                         int op3;
                                         do{
                                             System.out.println("MENU CLIENTE");
@@ -74,26 +75,13 @@ public class Principal {
 
                                             switch (op3){
                                                 case 1:{
-                                                    String descricao;
-                                                    int esc;
-
-
-                                                    System.out.println("Descreva o problema:");
-                                                    descricao=tc.next();
-                                                    do{
-                                                        System.out.println("Escolha prioridade:");
-                                                        System.out.println("1- Baixa");
-                                                        System.out.println("2- Moderada");
-                                                        System.out.println("3- Alta");
-                                                        System.out.println("4- Urgente");
-                                                        esc=tc.nextInt();
-                                                    }while (esc<1||esc>4);
-
-                                                    Chamado c = new Chamado();
-                                                    c.setStatus(1);
-                                                    c.setDescricao(descricao);
-                                                    c.setPrioridade(esc);
-                                                    c.abrirChamado(c);
+                                                    ClienteDao cDao = new ClienteDao();
+                                                    if(cDao.retornaLista()!=null) {
+                                                        Chamado c = new Chamado();
+                                                        c.abrirChamado(usuarioLogado.getTipoUsuario());
+                                                    }else{
+                                                        System.out.println("Nao existem clientes para chamados.");
+                                                    }
                                                 }
                                                 break;
                                                 case 4:{
@@ -148,6 +136,8 @@ public class Principal {
                                             System.out.println("2- Cadastrar Tecnicos");
                                             System.out.println("3- Cadastrar Gerentes");
                                             System.out.println("4- Visualizar Tecnicos");
+                                            System.out.println("5- Visualizar Clientes");
+                                            System.out.println("6- Visualizar Gerentes");
                                             System.out.println("0- Sair");
                                             op5 = tc.nextInt();
 
@@ -171,6 +161,17 @@ public class Principal {
                                                     Tecnico t = new Tecnico();
                                                     t.listarTecnicos();
                                                 }
+                                                break;
+                                                case 5:{
+                                                    Cliente c = new Cliente();
+                                                    c.listarClientes();
+                                                }
+                                                break;
+                                                case 6:{
+                                                    Gerente g = new Gerente();
+                                                    g.listarGerentes();
+                                                }
+                                                break;
                                                 case 0:{
                                                     System.out.println("Menu suspenso.");
                                                 }

@@ -54,4 +54,23 @@ public class ClienteDao {
             return lista;
         }
     }
+
+    public boolean consultaId(int id){
+        String sql = "select id from cliente where id="+id+";";
+        ResultSet rs = sqlite.querySql(sql);
+        int idAux=-1;
+        try {
+            while (rs.next()) {
+                idAux = rs.getInt("id");
+            }
+        }catch (Exception e){
+
+        }
+
+        if(idAux==id){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

@@ -35,17 +35,20 @@ public class Tecnico extends Pessoa {
     public void listarTecnicos(){
         ArrayList<Tecnico> list = new ArrayList();
         list=tDao.retornaLista();
-
-        for (Tecnico t: list
-                ) {
-            System.out.println("");
-            System.out.println("Codigo: "+t.getId());
-            System.out.println("Nome: "+t.getNome());
-            System.out.println("Email: "+t.getLoginEmail());
-            System.out.println("Telefone: "+t.getTelefone());
-            System.out.println("Senha: "+t.getSenha());
-            System.out.println("Nivel de Permissao: "+t.getTipoUsuario());
-            System.out.println("Numero de Tarefas: "+t.getNumTarefas());
+        if(list!=null) {
+            for (Tecnico t : list
+                    ) {
+                System.out.println("");
+                System.out.println("Codigo: " + t.getId());
+                System.out.println("Nome: " + t.getNome());
+                System.out.println("Email: " + t.getLoginEmail());
+                System.out.println("Telefone: " + t.getTelefone());
+                System.out.println("Senha: " + t.getSenha());
+                System.out.println("Nivel de Permissao: " + t.getTipoUsuario());
+                System.out.println("Numero de Tarefas: " + t.getNumTarefas());
+            }
+        }else{
+            System.out.println("Nenhum tecnico adicionado.");
         }
     }
 }
