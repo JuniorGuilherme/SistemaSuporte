@@ -47,7 +47,7 @@ public class Principal {
 
                     usuarioLogado = p.validaLogin(nome, senha);
 
-                    if(usuarioLogado.getNome()!=null){
+                    if(usuarioLogado!=null){
                         int op2;
                         do{
 
@@ -55,6 +55,7 @@ public class Principal {
                             System.out.println("1- Cliente");
                             System.out.println("2- Tecnico");
                             System.out.println("3- Gerente");
+                            System.out.println("0- Sair");
 
                             op2 = tc.nextInt();
 
@@ -88,17 +89,23 @@ public class Principal {
                                                         esc=tc.nextInt();
                                                     }while (esc<1||esc>4);
 
-                                                    Chamado c = new Chamado(descricao, esc, usuarioLogado.getId());
+                                                    Chamado c = new Chamado();
+                                                    c.setStatus(1);
+                                                    c.setDescricao(descricao);
+                                                    c.setPrioridade(esc);
                                                     c.abrirChamado(c);
                                                 }
                                                 break;
                                                 case 4:{
-                                                    Chamado c = new Chamado(usuarioLogado.getId());
-                                                    c.listarChamados();
+                                                    Chamado c = new Chamado();
+                                                    c.listarChamados(1);
                                                 }
                                                 break;
+                                                case 0:{
+                                                    System.out.println("Menu Suspenso.");
+                                                }
                                             }
-                                        }while(op2!=0);
+                                        }while(op3!=0);
                                     }else{
                                         System.out.println("Acesso negado. Nivel de permissao insuficiente.");
                                     }
@@ -106,24 +113,24 @@ public class Principal {
                                 break;
                                 case 2:{
                                     int op4;
+                                    Chamado c = new Chamado();
                                     if(usuarioLogado.getTipoUsuario()>=2){
                                         do{
                                             System.out.println("MENU TECNICO");
-                                            System.out.println("1- Cadastrar Tecnicos");
-                                            System.out.println("2- Remover Tecnicos");
-                                            System.out.println("3- Atualizar");
+                                            System.out.println("1- Tarefas Pendentes");
+                                            System.out.println("2- Tarefas Realizadas");
+                                            System.out.println("3- Finalizar Tarefas");
                                             System.out.println("4- Visualizar Tecnicos");
                                             System.out.println("0- Sair");
                                             op4=tc.nextInt();
 
                                             switch (op4){
                                                 case 1:{
-
+                                                    c.listarChamados(1);
                                                 }
                                                 break;
-                                                case 4:{
-                                                    Tecnico t = new Tecnico();
-                                                    t.listarTecnicos();
+                                                case 2:{
+                                                    c.listarChamados(0);
                                                 }
                                             }
                                         }while(op4!=0);
@@ -140,6 +147,8 @@ public class Principal {
                                             System.out.println("1- Cadastrar Clientes");
                                             System.out.println("2- Cadastrar Tecnicos");
                                             System.out.println("3- Cadastrar Gerentes");
+                                            System.out.println("4- Visualizar Tecnicos");
+                                            System.out.println("0- Sair");
                                             op5 = tc.nextInt();
 
                                             switch (op5){
@@ -157,11 +166,23 @@ public class Principal {
                                                     Gerente g = new Gerente();
                                                     g.cadastrar();
                                                 }
+                                                break;
+                                                case 4:{
+                                                    Tecnico t = new Tecnico();
+                                                    t.listarTecnicos();
+                                                }
+                                                case 0:{
+                                                    System.out.println("Menu suspenso.");
+                                                }
                                             }
                                         }while (op5!=0);
                                     }else{
                                         System.out.println("Acesso negado. Nivel de permissao insuficiente.");
                                     }
+                                }
+                                break;
+                                case 0:{
+                                    System.out.println("Menu Suspenso.");
                                 }
                             }
                         }while (op2!=0);

@@ -16,7 +16,27 @@ public class PessoaDao {
 
     public ArrayList<Pessoa> retornaLista(){
         ArrayList<Pessoa> lista = new ArrayList<>();
-        String sql = "SELECT * distinct FROM CLIENTE, GERENTE, TECNICO;";
+        String sql = "SELECT id, nome, telefone, loginEmail, senha, tipoUsuario FROM GERENTE;";
+        preencheArray(sql, lista);
+        sql = "SELECT id, nome, telefone, loginEmail, senha, tipoUsuario FROM cliente;";
+        preencheArray(sql, lista);
+        sql = "SELECT id, nome, telefone, loginEmail, senha, tipoUsuario FROM tecnico;";
+        preencheArray(sql, lista);
+        if(lista.isEmpty()){
+            return null;
+        }else{
+            return lista;
+        }
+    }
+
+    public void salvar(Pessoa p){
+        if(p!=null){
+            String sql = "insert into pessoa("+p.getNome()+","+p.getTelefone()+","+p.getLoginEmail()+","+p.getSenha()+","+p.getTipoUsuario()+")";
+            sqlite.executarSQL(sql);
+        }
+    }
+
+    public void preencheArray(String sql, ArrayList lista){
         ResultSet rs = sqlite.querySql(sql);
 
         try{
@@ -40,18 +60,6 @@ public class PessoaDao {
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
-        }
-        if(lista.isEmpty()){
-            return null;
-        }else{
-            return lista;
-        }
-    }
-
-    public void salvar(Pessoa p){
-        if(p!=null){
-            String sql = "insert into pessoa("+p.getNome()+","+p.getTelefone()+","+p.getLoginEmail()+","+p.getSenha()+","+p.getTipoUsuario()+")";
-            sqlite.executarSQL(sql);
         }
     }
 }

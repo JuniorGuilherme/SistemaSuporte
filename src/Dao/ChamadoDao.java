@@ -22,7 +22,7 @@ public class ChamadoDao {
 
     public ArrayList<Chamado> retornaLista(){
         ArrayList<Chamado> lista = new ArrayList<>();
-        String sql = "SELECT id, prioridade, descricao, idCliente FROM chamado;";
+        String sql = "SELECT id, prioridade, descricao, idCliente, status FROM chamado;";
         ResultSet rs = sqlite.querySql(sql);
 
         try{
@@ -31,9 +31,45 @@ public class ChamadoDao {
                 int prioridade = rs.getInt("prioridade");
                 String descricao = rs.getString("descricao");
                 int idCliente = rs.getInt("idCliente");
+                int status = rs.getInt("status");
 
-                Chamado c = new Chamado(id, descricao, prioridade, idCliente);
+                Chamado c = new Chamado();
+                c.setPrioridade(prioridade);
+                c.setId(id);
+                c.setDescricao(descricao);
+                c.setStatus(status);
 
+                lista.add(c);
+                //
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        if(lista.isEmpty()){
+            return null;
+        }else{
+            return lista;
+        }
+    }
+
+    public ArrayList<Chamado> retornaListaPorId(int idTec){
+        ArrayList<Chamado> lista = new ArrayList<>();
+        String sql = "SELECT id, prioridade, descricao, idCliente FROM chamado where idTecnico="+idTec;
+        ResultSet rs = sqlite.querySql(sql);
+
+        try{
+            while(rs.next()){
+                int prioridade = rs.getInt("prioridade");
+                int id = rs.getInt("id");
+                String descricao = rs.getString("descricao");
+                int idCliente = rs.getInt("idCliente");
+                int status = rs.getInt("status");
+
+                Chamado c = new Chamado();
+                c.setStatus(status);
+                c.setDescricao(descricao);
+                c.setId(id);
+                c.setPrioridade(prioridade);
                 lista.add(c);
             }
         }catch (Exception e){

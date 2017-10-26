@@ -22,12 +22,12 @@ public class Tecnico extends Pessoa {
         Pessoa p = new Pessoa();
         p.cadastrar();
         Tecnico t = new Tecnico();
-        this.setNome(p.getNome());
-        this.setTelefone(p.getTelefone());
-        this.setLoginEmail(p.getLoginEmail());
-        this.setSenha(p.getSenha());
-        this.setTipoUsuario(p.getTipoUsuario());
-        this.setNumTarefas(0);
+        t.setNome(p.getNome());
+        t.setTelefone(p.getTelefone());
+        t.setLoginEmail(p.getLoginEmail());
+        t.setSenha(p.getSenha());
+        t.setTipoUsuario(p.getTipoUsuario());
+        t.setNumTarefas(0);
 
         tDao.salvar(t);
     }

@@ -8,24 +8,21 @@ import java.util.ArrayList;
 public class Chamado {
     ChamadoDao cDao = new ChamadoDao();
 
-    private int prioridade, idCliente, id, idTecnico;
+    private int prioridade;
+    private int idCliente;
+    private int id;
+    private int idTecnico;
+
+
+    private int status;
     private String descricao;
 
-    public Chamado(int id, String descricao, int prioridade, int idCliente){
-        this.prioridade=prioridade;
-        this.descricao=descricao;
-        this.idCliente=idCliente;
-        this.id=id;
+    public int getStatus() {
+        return status;
     }
 
-    public Chamado(String descricao, int prioridade, int idCliente){
-        this.prioridade=prioridade;
-        this.descricao=descricao;
-        this.idCliente=idCliente;
-    }
-
-    public Chamado(int idCliente){
-        this.idCliente=idCliente;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getIdTecnico() {
@@ -83,6 +80,7 @@ public class Chamado {
                 }
             }
             c.setIdTecnico(tVago.getId());
+            c.setStatus(1);
             cDao.salvar(c);
         }
         else{
@@ -90,17 +88,20 @@ public class Chamado {
         }
     }
 
-    public void listarChamados(){
+    public void listarChamados(int status){
         ArrayList<Chamado> list = new ArrayList();
         list=cDao.retornaLista();
 
         for (Chamado c: list
              ) {
-            System.out.println("");
-            System.out.println("Codigo: "+c.getId());
-            System.out.println("Descricao: "+c.getDescricao());
-            System.out.println("Prioridade: "+getPrioridade());
-            System.out.println("Codigo do Cliente: "+getIdCliente());
+            if(c.getStatus()==status){
+                System.out.println("");
+                System.out.println("Codigo: "+c.getId());
+                System.out.println("Descricao: "+c.getDescricao());
+                System.out.println("Prioridade: "+getPrioridade());
+                System.out.println("Codigo do Cliente: "+getIdCliente());
+                System.out.println("Codigo do Tecnico: "+getIdTecnico());
+            }
         }
     }
 }
